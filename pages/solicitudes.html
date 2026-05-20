@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Solicitudes de Análisis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <div class="container py-4">
+
+        <!-- ENCABEZADO -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="mb-0">Solicitudes de Análisis</h2>
+                <small class="text-muted">Registro y control de solicitudes clínicas</small>
+            </div>
+
+            <div>
+                <button class="btn btn-secondary me-2" onclick="volverDashboard()">
+                    Volver
+                </button>
+
+                <button class="btn btn-danger" onclick="cerrarSesion()">
+                    Cerrar sesión
+                </button>
+            </div>
+        </div>
+
+        <!-- FORMULARIO NUEVA SOLICITUD -->
+        <div class="card shadow p-4 mb-4">
+            <h5 class="mb-3">Nueva solicitud</h5>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="paciente_id" class="form-label">Paciente</label>
+                    <select id="paciente_id" class="form-select">
+                        <option value="">Seleccione paciente</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="tipo_analisis_id" class="form-label">Tipo de análisis</label>
+                    <select id="tipo_analisis_id" class="form-select">
+                        <option value="">Seleccione análisis</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="observaciones" class="form-label">Observaciones</label>
+                <textarea 
+                    id="observaciones" 
+                    class="form-control" 
+                    rows="3"
+                    placeholder="Ejemplo: Paciente en ayunas, análisis urgente, etc."></textarea>
+            </div>
+
+            <button class="btn btn-primary" onclick="registrarSolicitud()">
+                Registrar solicitud
+            </button>
+        </div>
+
+        <!-- LISTADO DE SOLICITUDES -->
+        <div class="card shadow p-4">
+            <h5 class="mb-3">Listado de solicitudes</h5>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Paciente</th>
+                            <th>Análisis</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                            <th>Observaciones</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tabla_solicitudes">
+                        <tr>
+                            <td colspan="6" class="text-center text-muted">
+                                Cargando solicitudes...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Firebase SDK compat -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore-compat.js"></script>
+
+    <!-- Archivos del proyecto -->
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/solicitudes.js"></script>
+
+    <script>
+        // ========================================
+        // INICIALIZAR PÁGINA
+        // ========================================
+        document.addEventListener("DOMContentLoaded", function () {
+            validarRolesPermitidos(["LABORATORISTA", "ADMINISTRADOR"]);
+            cargarPacientes();
+            cargarTiposAnalisis();
+            listarSolicitudes();
+        });
+
+        // ========================================
+        // VOLVER AL DASHBOARD SEGÚN ROL
+        // ========================================
+        function volverDashboard() {
+            auth.onAuthStateChanged(async function(user) {
+                if (!user) {
+                    window.location.href = "login.html";
+                    return;
+                }
+
+                const usuarioDoc = await db.collection("usuarios").doc(user.uid).get();
+
+                if (!usuarioDoc.exists) {
+                    window.location.href = "login.html";
+                    return;
+                }
+
+                const usuario = usuarioDoc.data();
+
+                if (usuario.rol === "ADMINISTRADOR") {
+                    window.location.href = "dashboard_admin.html";
+                } else if (usuario.rol === "LABORATORISTA") {
+                    window.location.href = "dashboard_laboratorista.html";
+                } else {
+                    window.location.href = "dashboard_paciente.html";
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
