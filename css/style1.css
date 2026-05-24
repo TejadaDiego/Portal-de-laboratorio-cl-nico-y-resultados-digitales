@@ -238,3 +238,29 @@
     font-size:1rem;
   }
 }
+
+/* FORZAR FONDO NEGRO GENERAL */
+
+html,
+body{
+  background:#050505 !important;
+  background-color:#050505 !important;
+  color:#00ff66;
+  min-height:100vh;
+}
+
+/* Por si Bootstrap intenta pintar algún fondo claro */
+.bg-light,
+.container,
+.page-wrapper{
+  background:transparent !important;
+}
+
+/* Ajuste del contenedor principal */
+.page-wrapper{
+  width:90%;
+  max-width:1200px;
+  margin:auto;
+  min-height:100vh;
+  padding:40px 0;
+}
