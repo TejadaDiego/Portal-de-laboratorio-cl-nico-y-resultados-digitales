@@ -1,10 +1,9 @@
-<!-- pages/registro.html COMPLETO -->
+<!-- pages/registro.html COMPLETO FUNCIONAL CON FIREBASE -->
 
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
-
   <meta charset="UTF-8">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,37 +11,29 @@
   <title>Registro de Paciente</title>
 
   <link rel="stylesheet" href="../css/style.css">
-
 </head>
 
 <body>
 
   <!-- SCANLINES -->
-
   <div class="scanline"></div>
 
   <!-- TERMINAL ERROR -->
-
   <div id="errorScreen" class="error-screen hidden">
-
     <div class="error-box">
-
       <h2>SYSTEM ERROR</h2>
 
       <p id="errorText">
         INVALID DATA DETECTED
       </p>
-
     </div>
-
   </div>
 
   <!-- CONTENIDO -->
-
   <main class="form-container">
 
     <p class="system typing">
-      > NEW PATIENT REGISTRATION
+      &gt; NEW PATIENT REGISTRATION
     </p>
 
     <h1 class="title">
@@ -50,8 +41,6 @@
     </h1>
 
     <form id="registroForm" class="form">
-
-      <!-- DNI -->
 
       <label for="dni">
         DNI
@@ -64,8 +53,6 @@
         required
       >
 
-      <!-- NOMBRES -->
-
       <label for="nombres">
         Nombres
       </label>
@@ -76,8 +63,6 @@
         placeholder="Juan"
         required
       >
-
-      <!-- APELLIDOS -->
 
       <label for="apellidos">
         Apellidos
@@ -90,8 +75,6 @@
         required
       >
 
-      <!-- CORREO -->
-
       <label for="correo">
         Correo electrónico
       </label>
@@ -103,8 +86,6 @@
         required
       >
 
-      <!-- PASSWORD -->
-
       <label for="password">
         Contraseña
       </label>
@@ -112,11 +93,9 @@
       <input
         type="password"
         id="password"
-        placeholder="********"
+        placeholder="Mínimo 6 caracteres"
         required
       >
-
-      <!-- TELEFONO -->
 
       <label for="telefono">
         Teléfono
@@ -129,19 +108,15 @@
         required
       >
 
-      <!-- FECHA -->
-
-      <label for="fechaNacimiento">
+      <label for="fecha_nacimiento">
         Fecha de nacimiento
       </label>
 
       <input
         type="date"
-        id="fechaNacimiento"
+        id="fecha_nacimiento"
         required
       >
-
-      <!-- DIRECCION -->
 
       <label for="direccion">
         Dirección
@@ -154,38 +129,37 @@
         required
       >
 
-      <!-- BOTON -->
-
       <button type="submit" class="btn">
         REGISTRAR PACIENTE
       </button>
 
     </form>
 
-    <!-- MENSAJE -->
-
     <p id="successMessage" class="success-message hidden">
-      > VALIDATION SUCCESSFUL
+      &gt; VALIDATION SUCCESSFUL
       <br>
-      > READY FOR FIREBASE CONNECTION
+      &gt; PATIENT REGISTERED
     </p>
 
-    <!-- LINK -->
-
     <p class="link-text">
-
       ¿Ya tienes cuenta?
 
       <a href="login.html">
         Iniciar sesión
       </a>
-
     </p>
 
   </main>
 
-  <!-- JS -->
+  <!-- FIREBASE SDK COMPAT -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore-compat.js"></script>
 
+  <!-- ARCHIVOS DEL SISTEMA -->
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/sounds.js"></script>
+  <script src="../js/auth.js"></script>
   <script src="../js/registro-validation.js"></script>
 
 </body>

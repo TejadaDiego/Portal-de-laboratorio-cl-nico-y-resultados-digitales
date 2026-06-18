@@ -230,7 +230,8 @@ async function cambiarEstadoSolicitud(idSolicitud, nuevoEstado) {
 
     try {
         await db.collection("solicitudes").doc(idSolicitud).update({
-            estado: nuevoEstado
+            estado: nuevoEstado,
+            fecha_actualizacion: new Date()
         });
 
         alert("Estado actualizado correctamente.");

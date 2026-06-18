@@ -1,68 +1,87 @@
 /* ========================================
    SONIDOS RETRO ONLINE
+   Archivo: js/sounds.js
 ======================================== */
 
-/* CLICK */
 
-const clickSound =
-new Audio(
-"https://www.myinstants.com/media/sounds/computer-mouse-click.mp3"
+/* ========================================
+   CREAR AUDIOS
+======================================== */
+
+const clickSound = new Audio(
+    "https://www.myinstants.com/media/sounds/computer-mouse-click.mp3"
 );
 
-/* ERROR */
-
-const errorSound =
-new Audio(
-"https://www.myinstants.com/media/sounds/windows-error.mp3"
+const errorSound = new Audio(
+    "https://www.myinstants.com/media/sounds/windows-error.mp3"
 );
 
-/* SUCCESS */
-
-const successSound =
-new Audio(
-"https://www.myinstants.com/media/sounds/pipboy-ui.mp3"
+const successSound = new Audio(
+    "https://www.myinstants.com/media/sounds/pipboy-ui.mp3"
 );
 
-/* BOTONES */
 
-document.querySelectorAll(".btn")
-.forEach(button => {
+/* ========================================
+   CONFIGURACIÓN DE VOLUMEN
+======================================== */
 
-  button.addEventListener(
-    "click",
-    () => {
+clickSound.volume = 0.3;
+errorSound.volume = 0.5;
+successSound.volume = 0.5;
 
-      clickSound.currentTime = 0;
 
-      clickSound.volume = 0.3;
+/* ========================================
+   REPRODUCIR AUDIO SEGURO
+======================================== */
 
-      clickSound.play();
+function reproducirAudio(audio) {
+    if (!audio) return;
 
+    try {
+        audio.currentTime = 0;
+
+        const promesa = audio.play();
+
+        if (promesa !== undefined) {
+            promesa.catch(() => {
+                console.warn("El navegador bloqueó el sonido hasta que el usuario interactúe.");
+            });
+        }
+
+    } catch (error) {
+        console.warn("No se pudo reproducir el sonido:", error);
     }
-  );
-
-});
-
-/* FUNCION ERROR */
-
-function playErrorSound(){
-
-  errorSound.currentTime = 0;
-
-  errorSound.volume = 0.5;
-
-  errorSound.play();
-
 }
 
-/* FUNCION SUCCESS */
 
-function playSuccessSound(){
+/* ========================================
+   SONIDO CLICK EN BOTONES
+======================================== */
 
-  successSound.currentTime = 0;
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".btn").forEach(function (button) {
+        button.addEventListener("click", function () {
+            reproducirAudio(clickSound);
+        });
+    });
+});
 
-  successSound.volume = 0.5;
 
-  successSound.play();
+/* ========================================
+   FUNCIÓN ERROR
+   Usada por auth.js
+======================================== */
 
+function playErrorSound() {
+    reproducirAudio(errorSound);
+}
+
+
+/* ========================================
+   FUNCIÓN SUCCESS
+   Usada por auth.js
+======================================== */
+
+function playSuccessSound() {
+    reproducirAudio(successSound);
 }

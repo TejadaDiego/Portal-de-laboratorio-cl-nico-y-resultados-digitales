@@ -14,7 +14,6 @@ const firebaseConfig = {
 // Inicializar Firebase
 firebase.initializeApp(firebaseConfig);
 
-// Servicios que usará el sistema
+// Servicios que usará el sistema por ahora
 const auth = firebase.auth();
 const db = firebase.firestore();
-const storage = firebase.storage();
