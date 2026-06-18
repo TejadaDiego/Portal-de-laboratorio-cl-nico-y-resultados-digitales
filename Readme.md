@@ -1,6 +1,6 @@
 # 🧪 Proyecto AA1 - Portal de Laboratorio Clínico y Resultados Digitales
 
-## 📌 Descripción del Proyecto
+## Descripción del Proyecto
 
 Este proyecto consiste en el desarrollo de un portal web para un laboratorio clínico que desea entregar los resultados de análisis médicos de manera digital, ordenada y segura.
 
@@ -12,13 +12,13 @@ El proyecto será desarrollado usando tecnologías web y Firebase, evitando la n
 
 ---
 
-# 🎯 Objetivo General
+# Objetivo General
 
 Desarrollar un portal web para un laboratorio clínico que permita gestionar digitalmente el registro de pacientes, solicitudes de análisis, carga de resultados y consulta segura del historial médico, mejorando la organización y entrega de resultados al paciente.
 
 ---
 
-# 📌 Caso Asignado
+# Caso Asignado
 
 ## Caso 14: Portal de laboratorio clínico y resultados digitales
 
@@ -49,7 +49,7 @@ Los resultados se entregan físicamente o por canales poco organizados.
 
 ---
 
-# 🛠️ Tecnologías Utilizadas
+# Tecnologías Utilizadas
 
 Para el desarrollo del proyecto se utilizarán las siguientes tecnologías:
 
@@ -68,7 +68,7 @@ Para el desarrollo del proyecto se utilizarán las siguientes tecnologías:
 
 ---
 
-# 🔥 Servicios de Firebase Utilizados
+# Servicios de Firebase Utilizados
 
 ## Firebase Authentication
 
@@ -112,13 +112,13 @@ Permitirá:
 
 ---
 
-# 👥 Roles del Sistema
+# Roles del Sistema
 
 El sistema contará con tres roles principales.
 
 ---
 
-## 👤 Paciente
+## Paciente
 
 El paciente es el usuario que podrá consultar sus análisis y resultados.
 
@@ -134,7 +134,7 @@ El paciente es el usuario que podrá consultar sus análisis y resultados.
 
 ---
 
-## 🧑‍🔬 Laboratorista
+## Laboratorista
 
 El laboratorista es el usuario encargado de registrar solicitudes y cargar resultados.
 
@@ -152,7 +152,7 @@ El laboratorista es el usuario encargado de registrar solicitudes y cargar resul
 
 ---
 
-## 🛡️ Administrador
+## Administrador
 
 El administrador es el usuario encargado de gestionar el sistema y controlar accesos.
 
@@ -169,7 +169,7 @@ El administrador es el usuario encargado de gestionar el sistema y controlar acc
 
 ---
 
-# 📂 Estructura del Proyecto
+# Estructura del Proyecto
 
 ```text
 portal_laboratorio_firebase/
@@ -214,7 +214,7 @@ portal_laboratorio_firebase/
 
 ---
 
-# 📁 Descripción de Carpetas
+# Descripción de Carpetas
 
 ## pages/
 
