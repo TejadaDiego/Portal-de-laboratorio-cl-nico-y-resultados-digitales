@@ -1,0 +1,108 @@
+<!-- pages/login.html COMPLETO FUNCIONAL CON FIREBASE -->
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Iniciar Sesión</title>
+
+  <link rel="stylesheet" href="../../css/base/style.css">
+</head>
+
+<body>
+
+  <!-- SCANLINES -->
+  <div class="scanline"></div>
+
+  <!-- ERROR SCREEN -->
+  <div id="errorScreen" class="error-screen hidden">
+    <div class="error-box">
+      <h2>ACCESS DENIED</h2>
+
+      <p id="errorText">
+        INVALID CREDENTIALS
+      </p>
+    </div>
+  </div>
+
+  <!-- CONTENIDO -->
+  <main class="form-container">
+
+    <p class="system typing">
+      &gt; AUTHENTICATION REQUIRED
+    </p>
+
+    <h1 class="title">
+      ACCESO AL SISTEMA
+    </h1>
+
+    <!-- FORM -->
+    <form id="loginForm" class="form">
+
+      <!-- CORREO -->
+      <label for="correo">
+        Correo electrónico
+      </label>
+
+      <input
+        type="email"
+        id="correo"
+        placeholder="ejemplo@gmail.com"
+        required
+      >
+
+      <!-- PASSWORD -->
+      <label for="password">
+        Contraseña
+      </label>
+
+      <input
+        type="password"
+        id="password"
+        placeholder="********"
+        required
+      >
+
+      <!-- BOTON -->
+      <button type="submit" class="btn">
+        INICIAR SESIÓN
+      </button>
+
+    </form>
+
+    <!-- MENSAJE EXITO -->
+    <p id="successMessage" class="success-message hidden">
+      &gt; ACCESS GRANTED
+      <br>
+      &gt; REDIRECTING USER...
+    </p>
+
+    <!-- LINK -->
+    <p class="link-text">
+      ¿No tienes cuenta?
+
+      <a href="registro.html">
+        Regístrate
+      </a>
+    </p>
+
+  </main>
+
+  <!-- FIREBASE SDK COMPAT -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore-compat.js"></script>
+
+  <!-- ARCHIVOS DEL SISTEMA -->
+  <script src="../../js/config/firebase-config.js"></script>
+  <script src="../../js/utils/sounds.js"></script>
+  <script src="../../js/services/auth.js"></script>
+  <script src="../../js/validations/login-validation.js"></script>
+
+</body>
+
+</html>

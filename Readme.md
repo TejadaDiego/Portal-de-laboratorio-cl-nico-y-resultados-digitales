@@ -1218,3 +1218,9 @@ El Portal de Laboratorio Clínico y Resultados Digitales busca mejorar la entreg
 La solución propuesta permite reducir el uso de documentos físicos y canales informales, brindando al laboratorio una herramienta básica para gestionar pacientes, solicitudes, resultados y notificaciones.
 
 Este MVP servirá como primera versión funcional del sistema y podrá ser ampliado en el futuro con nuevas funcionalidades como envío real de correos, firma digital, reportes avanzados, integración con sistemas clínicos y aplicación móvil.
+
+---
+
+## Organización técnica
+
+La estructura actual separa vistas, estilos, controladores, servicios, validaciones, configuración de Firebase y documentación para facilitar el mantenimiento del proyecto.

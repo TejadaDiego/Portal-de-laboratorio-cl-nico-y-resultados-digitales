@@ -1,0 +1,73 @@
+<!-- pages/dashboard_laboratorista.html COMPLETO FUNCIONAL -->
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Dashboard Laboratorista</title>
+
+  <link rel="stylesheet" href="../../css/base/style.css">
+</head>
+
+<body>
+
+  <div class="scanline"></div>
+
+  <main class="container">
+
+    <p class="system typing">
+      &gt; LAB ACCESS VERIFIED
+    </p>
+
+    <h1 class="title">
+      DASHBOARD LABORATORISTA
+    </h1>
+
+    <div class="status-box">
+      <p>[ LAB MODULES ACTIVE ]</p>
+      <p>[ RESULTS SYSTEM READY ]</p>
+      <p>[ CONNECTION STABLE ]</p>
+    </div>
+
+    <div class="buttons">
+
+      <a href="pacientes.html" class="btn">
+        PACIENTES
+      </a>
+
+      <a href="solicitudes.html" class="btn">
+        SOLICITUDES DE ANÁLISIS
+      </a>
+
+      <a href="resultados.html" class="btn">
+        RESULTADOS
+      </a>
+
+      <button type="button" class="btn" onclick="cerrarSesion()">
+        CERRAR SESIÓN
+      </button>
+
+    </div>
+
+  </main>
+
+  <!-- FIREBASE SDK COMPAT -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore-compat.js"></script>
+
+  <script src="../../js/config/firebase-config.js"></script>
+  <script src="../../js/utils/sounds.js"></script>
+  <script src="../../js/services/auth.js"></script>
+
+  <script>
+    validarRol("LABORATORISTA");
+  </script>
+
+</body>
+
+</html>
