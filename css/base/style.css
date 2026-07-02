@@ -1,624 +1,732 @@
-/* css/style.css COMPLETO ACTUALIZADO */
-
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+/* style.css - Portal Laboratorio Clínico */
 
 /* RESET */
 
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
+
 
 /* BODY */
 
 body{
 
-  background:#050505;
+    background:#f4f8fb;
 
-  color:#00ff66;
+    color:#243447;
 
-  font-family:'VT323', monospace;
+    font-family:'Segoe UI', Arial, sans-serif;
 
-  min-height:100vh;
+    min-height:100vh;
 
-  overflow-x:hidden;
-
-  position:relative;
 }
 
-/* SCANLINES */
-
-.scanline{
-
-  position:fixed;
-
-  top:0;
-  left:0;
-
-  width:100%;
-  height:100%;
-
-  background:
-  repeating-linear-gradient(
-    to bottom,
-    rgba(0,255,100,0.03),
-    rgba(0,255,100,0.03) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-
-  pointer-events:none;
-
-  z-index:999;
-}
 
 /* CONTENEDORES */
 
 .container,
 .form-container{
 
-  width:90%;
+    width:90%;
 
-  max-width:1100px;
+    max-width:1100px;
 
-  margin:auto;
+    margin:auto;
 
-  min-height:100vh;
+    min-height:100vh;
 
-  display:flex;
+    display:flex;
 
-  flex-direction:column;
+    flex-direction:column;
 
-  justify-content:center;
+    justify-content:center;
 
-  align-items:center;
+    align-items:center;
 
-  text-align:center;
+    text-align:center;
+
 }
+
 
 /* TITULO */
 
 .title{
 
-  font-size:4rem;
+    font-size:3.5rem;
 
-  margin-bottom:30px;
+    color:#0b5ed7;
 
-  text-shadow:
-  0 0 5px #00ff66,
-  0 0 10px #00ff66,
-  0 0 20px #00ff66;
+    margin-bottom:25px;
+
+    font-weight:700;
+
 }
 
-/* ANIMACION TITULO */
 
-.typing-title{
-
-  overflow:hidden;
-
-  white-space:nowrap;
-
-  border-right:3px solid #00ff66;
-
-  width:0;
-
-  animation:
-  typingTitle 4s steps(40,end) forwards,
-  blink 0.8s infinite;
-}
-
-@keyframes typingTitle{
-
-  from{
-    width:0;
-  }
-
-  to{
-    width:100%;
-  }
-}
-
-/* HERO SECTION */
+/* HERO */
 
 .hero-section{
 
-  width:100%;
+    width:100%;
 
-  display:flex;
+    display:flex;
 
-  justify-content:space-between;
+    justify-content:space-between;
 
-  align-items:center;
+    align-items:center;
 
-  gap:50px;
+    gap:40px;
 
-  margin-top:20px;
 }
+
 
 /* TEXTO */
 
 .hero-text{
 
-  flex:1;
+    flex:1;
+
 }
 
-/* SUBTITULO */
 
 .subtitle{
 
-  font-size:1.8rem;
+    font-size:1.7rem;
 
-  margin-bottom:30px;
+    color:#4b6584;
 
-  color:#66ff99;
+    margin-bottom:25px;
+
 }
 
-/* GIF */
+
+/* IMAGEN */
 
 .gif-container{
 
-  width:220px;
+    width:230px;
 
-  min-width:220px;
+    padding:15px;
 
-  border:2px solid #00ff66;
+    background:white;
 
-  padding:10px;
+    border-radius:15px;
 
-  background:#000;
+    border:1px solid #dce6f1;
 
-  box-shadow:
-  0 0 10px #00ff66,
-  0 0 20px rgba(0,255,100,0.3);
+    box-shadow:0 8px 20px rgba(0,0,0,.1);
 
-  transition:0.3s;
 }
 
-/* HOVER GIF */
 
-.gif-container:hover{
-
-  transform:scale(1.03);
-
-  box-shadow:
-  0 0 20px #00ff66,
-  0 0 40px rgba(0,255,100,0.5);
-}
-
-/* STATUS BOX */
+/* STATUS */
 
 .status-box{
 
-  border:2px solid #00ff66;
+    background:white;
 
-  padding:20px;
+    border-radius:15px;
 
-  margin-bottom:30px;
+    padding:25px;
 
-  width:100%;
+    width:100%;
 
-  box-shadow:
-  0 0 10px #00ff66;
+    margin-bottom:30px;
+
+    box-shadow:
+
+    0 5px 20px rgba(0,0,0,.08);
+
 }
+
 
 .status-box p{
 
-  font-size:1.5rem;
+    font-size:1.3rem;
 
-  margin:10px 0;
+    margin:10px;
+
+    color:#34495e;
+
 }
+
 
 /* BOTONES */
 
 .buttons{
 
-  display:flex;
+    display:flex;
 
-  gap:20px;
+    gap:20px;
 
-  flex-wrap:wrap;
+    flex-wrap:wrap;
 
-  justify-content:center;
+    justify-content:center;
+
 }
+
+
 
 .btn{
 
-  background:transparent;
 
-  color:#00ff66;
+    background:#0b5ed7;
 
-  border:2px solid #00ff66;
+    color:white;
 
-  padding:15px 30px;
+    border:none;
 
-  text-decoration:none;
+    padding:14px 30px;
 
-  font-size:1.5rem;
+    border-radius:10px;
 
-  font-family:'VT323', monospace;
+    text-decoration:none;
 
-  cursor:pointer;
+    font-size:1.2rem;
 
-  transition:0.3s;
+    cursor:pointer;
 
-  box-shadow:
-  0 0 5px #00ff66;
+    transition:.3s;
+
 }
 
-/* HOVER BOTONES */
 
 .btn:hover{
 
-  background:#00ff66;
+    background:#084298;
 
-  color:#050505;
+    transform:translateY(-3px);
 
-  box-shadow:
-  0 0 20px #00ff66,
-  0 0 40px #00ff66;
 }
 
-/* TERMINAL */
-
-.system{
-
-  font-size:1.3rem;
-
-  margin:10px 0;
-
-  color:#66ff99;
-
-  overflow:hidden;
-
-  white-space:nowrap;
-
-  border-right:2px solid #00ff66;
-
-  width:0;
-
-  animation:
-  typing 3s steps(40,end) forwards,
-  blink 0.8s infinite;
-}
-
-/* DELAYS */
-
-.delay1{
-  animation-delay:2s;
-}
-
-.delay2{
-  animation-delay:4s;
-}
-
-/* ANIMACION ESCRITURA */
-
-@keyframes typing{
-
-  from{
-    width:0;
-  }
-
-  to{
-    width:100%;
-  }
-}
-
-/* CURSOR */
-
-@keyframes blink{
-
-  0%{
-    border-color:#00ff66;
-  }
-
-  50%{
-    border-color:transparent;
-  }
-
-  100%{
-    border-color:#00ff66;
-  }
-}
-
-/* TEXTO PARPADEANTE */
-
-.blink-text{
-
-  margin-top:40px;
-
-  font-size:1.4rem;
-
-  animation:blinkText 1s infinite;
-}
-
-@keyframes blinkText{
-
-  0%{
-    opacity:1;
-  }
-
-  50%{
-    opacity:0;
-  }
-
-  100%{
-    opacity:1;
-  }
-}
 
 /* FORMULARIOS */
 
+
 .form{
 
-  width:100%;
+    width:100%;
 
-  display:flex;
+    display:flex;
 
-  flex-direction:column;
+    flex-direction:column;
 
-  gap:15px;
+    gap:15px;
+
 }
+
 
 .form label{
 
-  text-align:left;
+    text-align:left;
 
-  font-size:1.4rem;
+    font-size:1.1rem;
+
+    color:#34495e;
+
 }
+
 
 .form input{
 
-  background:#000;
+    background:white;
 
-  border:2px solid #00ff66;
+    border:2px solid #cdd9e5;
 
-  color:#00ff66;
+    color:#243447;
 
-  padding:15px;
+    padding:15px;
 
-  font-size:1.2rem;
+    border-radius:10px;
 
-  outline:none;
+    font-size:1rem;
 
-  font-family:'VT323', monospace;
+    outline:none;
 
-  box-shadow:
-  0 0 5px #00ff66;
 }
 
-/* FOCUS INPUTS */
 
 .form input:focus{
 
-  box-shadow:
-  0 0 15px #00ff66;
+
+    border-color:#0b5ed7;
+
+    box-shadow:
+
+    0 0 8px rgba(11,94,215,.3);
+
 }
+
 
 /* LINKS */
 
+
 .link-text{
 
-  margin-top:20px;
+    margin-top:20px;
 
-  font-size:1.3rem;
+    font-size:1.1rem;
+
 }
+
 
 .link-text a{
 
-  color:#66ff99;
+    color:#0b5ed7;
 
-  text-decoration:none;
+    text-decoration:none;
+
 }
+
 
 .link-text a:hover{
 
-  text-shadow:
-  0 0 10px #66ff99;
+    text-decoration:underline;
+
 }
 
-/* RESPONSIVE */
-
-@media(max-width:900px){
-
-  .hero-section{
-
-    flex-direction:column;
-  }
-
-  .gif-container{
-
-    width:260px;
-
-    min-width:260px;
-  }
-}
-
-@media(max-width:768px){
-
-  .title{
-    font-size:2.5rem;
-  }
-
-  .subtitle{
-    font-size:1.3rem;
-  }
-
-  .btn{
-    width:100%;
-  }
-
-  .system{
-    font-size:1rem;
-  }
-}
-/* AGREGAR AL FINAL DE style.css */
 
 /* MENSAJE EXITO */
 
+
 .success-message{
 
-  margin-top:20px;
+    margin-top:20px;
 
-  font-size:1.4rem;
+    font-size:1.2rem;
 
-  color:#66ff99;
+    color:#198754;
 
-  border:2px solid #00ff66;
+    background:#d1e7dd;
 
-  padding:20px;
+    border:1px solid #badbcc;
 
-  width:100%;
+    padding:20px;
 
-  box-shadow:
-  0 0 10px #00ff66;
+    border-radius:10px;
+
+    width:100%;
+
 }
 
-/* ERROR SCREEN */
+
+/* ERROR */
+
 
 .error-screen{
 
-  position:fixed;
 
-  top:0;
-  left:0;
+    position:fixed;
 
-  width:100%;
-  height:100%;
+    top:0;
 
-  background:rgba(0,0,0,0.95);
+    left:0;
 
-  display:flex;
+    width:100%;
 
-  justify-content:center;
+    height:100%;
 
-  align-items:center;
+    background:rgba(0,0,0,.5);
 
-  z-index:9999;
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
 }
 
-/* ERROR BOX */
 
 .error-box{
 
-  border:3px solid red;
 
-  padding:40px;
+    background:white;
 
-  width:80%;
+    border-left:8px solid #dc3545;
 
-  max-width:500px;
+    padding:40px;
 
-  text-align:center;
+    width:80%;
 
-  background:#100;
+    max-width:500px;
 
-  box-shadow:
-  0 0 20px red,
-  0 0 40px red;
+    border-radius:15px;
+
+    text-align:center;
+
 }
+
 
 .error-box h2{
 
-  color:red;
 
-  font-size:3rem;
+    color:#dc3545;
 
-  margin-bottom:20px;
+    margin-bottom:15px;
 
-  text-shadow:
-  0 0 10px red;
 }
+
 
 .error-box p{
 
-  color:#ff6666;
 
-  font-size:1.5rem;
+    color:#555;
+
 }
 
-/* HIDDEN */
+
+/* UTILIDADES */
+
 
 .hidden{
 
-  display:none;
+    display:none;
+
 }
 
-/* SHOW */
 
 .show{
 
-  animation:errorFlash 0.2s infinite;
+    display:block;
+
 }
 
-/* FLASH */
 
-@keyframes errorFlash{
+/* RESPONSIVE */
 
-  0%{
-    opacity:1;
-  }
 
-  50%{
-    opacity:0.7;
-  }
+@media(max-width:900px){
 
-  100%{
-    opacity:1;
-  }
+
+    .hero-section{
+
+
+        flex-direction:column;
+
+    }
+
+
 }
 
-/* SHAKE */
 
-.shake{
+@media(max-width:768px){
 
-  animation:shakeScreen 0.2s infinite;
+
+    .title{
+
+        font-size:2.5rem;
+
+    }
+
+
+    .subtitle{
+
+        font-size:1.3rem;
+
+    }
+
+
+    .btn{
+
+        width:100%;
+
+    }
+
 }
+/* IMAGEN PRINCIPAL LOGIN */
 
-@keyframes shakeScreen{
+.image-container{
 
-  0%{
-    transform:translateX(0);
-  }
+    flex:1;
 
-  25%{
-    transform:translateX(-5px);
-  }
+    height:500px;
 
-  50%{
-    transform:translateX(5px);
-  }
+    overflow:hidden;
 
-  75%{
-    transform:translateX(-5px);
-  }
+    border-radius:25px;
 
-  100%{
-    transform:translateX(0);
-  }
-}
-/* AGREGAR TAMBIEN AL FINAL DE style.css */
-
-/* ANIMACION EXITO */
-
-.success-animation{
-
-  animation:successGlow 1s infinite alternate;
-}
-
-@keyframes successGlow{
-
-  from{
+    background:white;
 
     box-shadow:
-    0 0 10px #00ff66;
-  }
 
-  to{
+    0 15px 40px rgba(0,0,0,.15);
 
-    box-shadow:
-    0 0 20px #00ff66,
-    0 0 40px #00ff66;
-  }
+}
+
+
+
+.image-container img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    transition:.5s;
+
+}
+
+
+
+/* efecto elegante */
+
+.image-container:hover img{
+
+    transform:scale(1.05);
+
+}
+
+
+
+/* ajustar texto */
+
+.hero-text{
+
+    flex:1;
+
+}
+
+
+
+.title{
+
+    text-transform:none;
+
+    line-height:1.2;
+
+}
+
+
+
+/* responsive */
+
+@media(max-width:900px){
+
+
+    .hero-section{
+
+        flex-direction:column;
+
+    }
+
+
+    .image-container{
+
+        width:100%;
+
+        height:350px;
+
+    }
+
+}
+/* LOGIN DIVIDIDO 50/50 */
+
+
+.login-page{
+
+
+    width:100%;
+
+    height:100vh;
+
+    display:flex;
+
+
+}
+
+
+
+
+
+/* FOTO */
+
+.login-image{
+
+
+    width:50%;
+
+    height:100%;
+
+
+}
+
+
+.login-image img{
+
+
+    width:100%;
+
+    height:100%;
+
+
+    object-fit:cover;
+
+
+}
+
+
+
+
+
+/* PANEL LOGIN */
+
+
+.login-panel{
+
+
+    width:50%;
+
+
+    display:flex;
+
+
+    justify-content:center;
+
+
+    align-items:center;
+
+
+    background:#f4f8fb;
+
+
+}
+
+
+
+
+.login-content{
+
+
+    width:80%;
+
+
+    max-width:450px;
+
+
+}
+
+
+
+
+.login-content h1{
+
+
+    font-size:3rem;
+
+
+    color:#0b5ed7;
+
+
+    margin-bottom:20px;
+
+
+}
+
+
+
+.login-content p{
+
+
+    font-size:1.3rem;
+
+
+    color:#555;
+
+
+    margin-bottom:30px;
+
+
+}
+
+
+
+
+.info-box{
+
+
+    background:white;
+
+
+    padding:20px;
+
+
+    border-radius:15px;
+
+
+    display:flex;
+
+
+    flex-direction:column;
+
+
+    gap:12px;
+
+
+    margin-bottom:30px;
+
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+
+}
+
+
+
+
+.btn{
+
+
+    display:inline-block;
+
+
+    margin-right:15px;
+
+
+}
+
+
+
+
+
+/* CELULAR */
+
+
+@media(max-width:900px){
+
+
+    .login-page{
+
+
+        flex-direction:column;
+
+
+    }
+
+
+
+    .login-image,
+
+
+    .login-panel{
+
+
+        width:100%;
+
+
+    }
+
+
+
+    .login-image{
+
+
+        height:40vh;
+
+
+    }
+
+
 }
