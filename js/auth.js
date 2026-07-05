@@ -15,23 +15,24 @@ function obtenerValor(id) {
 
 
 /* ========================================
-   SONIDOS OPCIONALES
-   Evita errores si no existen audios
+   SONIDOS SEGUROS
 ======================================== */
 
-function playSuccessSound() {
+function reproducirExito() {
     try {
-        const audio = document.getElementById("successSound");
-        if (audio) audio.play();
+        if (typeof playSuccessSound === "function") {
+            playSuccessSound();
+        }
     } catch (error) {
         console.warn("No se pudo reproducir sonido de éxito.");
     }
 }
 
-function playErrorSound() {
+function reproducirError() {
     try {
-        const audio = document.getElementById("errorSound");
-        if (audio) audio.play();
+        if (typeof playErrorSound === "function") {
+            playErrorSound();
+        }
     } catch (error) {
         console.warn("No se pudo reproducir sonido de error.");
     }
@@ -46,7 +47,7 @@ function showError(message) {
     const errorScreen = document.getElementById("errorScreen");
     const errorText = document.getElementById("errorText");
 
-    playErrorSound();
+    reproducirError();
 
     if (errorScreen && errorText) {
         errorText.innerText = message;
@@ -111,11 +112,7 @@ async function registrarPaciente() {
     }
 
     try {
-        const credencial = await auth.createUserWithEmailAndPassword(
-            correo,
-            password
-        );
-
+        const credencial = await auth.createUserWithEmailAndPassword(correo, password);
         const uid = credencial.user.uid;
 
         await db.collection("usuarios").doc(uid).set({
@@ -125,6 +122,7 @@ async function registrarPaciente() {
             correo: correo,
             rol: "PACIENTE",
             estado: "ACTIVO",
+            proveedor: "EMAIL",
             fecha_creacion: new Date()
         });
 
@@ -138,10 +136,11 @@ async function registrarPaciente() {
             correo: correo,
             direccion: direccion,
             estado: "ACTIVO",
+            proveedor: "EMAIL",
             fecha_creacion: new Date()
         });
 
-        playSuccessSound();
+        reproducirExito();
 
         if (successMessage) {
             successMessage.classList.remove("hidden");
@@ -174,7 +173,7 @@ async function registrarPaciente() {
 
 
 /* ========================================
-   INICIAR SESIÓN
+   INICIAR SESIÓN CON CORREO Y CONTRASEÑA
 ======================================== */
 
 async function iniciarSesion() {
@@ -199,11 +198,7 @@ async function iniciarSesion() {
     }
 
     try {
-        const credencial = await auth.signInWithEmailAndPassword(
-            correo,
-            password
-        );
-
+        const credencial = await auth.signInWithEmailAndPassword(correo, password);
         const uid = credencial.user.uid;
 
         const usuarioDoc = await db.collection("usuarios").doc(uid).get();
@@ -222,7 +217,7 @@ async function iniciarSesion() {
             return;
         }
 
-        playSuccessSound();
+        reproducirExito();
 
         if (successMessage) {
             successMessage.classList.remove("hidden");
@@ -243,6 +238,103 @@ async function iniciarSesion() {
             showError("INVALID EMAIL");
         } else if (error.code === "auth/invalid-credential") {
             showError("INVALID CREDENTIALS");
+        } else {
+            showError(error.message);
+        }
+    }
+}
+
+
+/* ========================================
+   INICIAR SESIÓN CON GOOGLE
+======================================== */
+
+async function iniciarConGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    const successMessage = document.getElementById("successMessage");
+
+    try {
+        const resultado = await auth.signInWithPopup(provider);
+        const user = resultado.user;
+
+        const uid = user.uid;
+        const correo = user.email || "";
+        const nombreCompleto = user.displayName || "Usuario";
+
+        const partesNombre = nombreCompleto.trim().split(" ");
+
+        const nombres = partesNombre.length > 1
+            ? partesNombre.slice(0, 2).join(" ")
+            : nombreCompleto;
+
+        const apellidos = partesNombre.length > 2
+            ? partesNombre.slice(2).join(" ")
+            : "";
+
+        const usuarioDoc = await db.collection("usuarios").doc(uid).get();
+
+        if (!usuarioDoc.exists) {
+            await db.collection("usuarios").doc(uid).set({
+                uid: uid,
+                nombres: nombres,
+                apellidos: apellidos,
+                correo: correo,
+                rol: "PACIENTE",
+                estado: "ACTIVO",
+                proveedor: "GOOGLE",
+                fecha_creacion: new Date()
+            });
+
+            await db.collection("pacientes").doc(uid).set({
+                uid: uid,
+                dni: "",
+                nombres: nombres,
+                apellidos: apellidos,
+                fecha_nacimiento: "",
+                telefono: "",
+                correo: correo,
+                direccion: "",
+                estado: "ACTIVO",
+                proveedor: "GOOGLE",
+                fecha_creacion: new Date()
+            });
+        }
+
+        const usuarioActualizadoDoc = await db.collection("usuarios").doc(uid).get();
+
+        if (!usuarioActualizadoDoc.exists) {
+            showError("USER DATA NOT FOUND");
+            await auth.signOut();
+            return;
+        }
+
+        const usuario = usuarioActualizadoDoc.data();
+
+        if (usuario.estado !== "ACTIVO") {
+            showError("USER INACTIVE");
+            await auth.signOut();
+            return;
+        }
+
+        reproducirExito();
+
+        if (successMessage) {
+            successMessage.classList.remove("hidden");
+        }
+
+        setTimeout(() => {
+            redirigirPorRol(usuario.rol);
+        }, 1500);
+
+    } catch (error) {
+        console.error("Error con Google:", error);
+
+        if (error.code === "auth/popup-closed-by-user") {
+            showError("GOOGLE LOGIN CANCELLED");
+        } else if (error.code === "auth/popup-blocked") {
+            showError("POPUP BLOCKED BY BROWSER");
+        } else if (error.code === "auth/account-exists-with-different-credential") {
+            showError("EMAIL ALREADY USED WITH ANOTHER METHOD");
         } else {
             showError(error.message);
         }
@@ -373,8 +465,6 @@ function validarRol(rolPermitido) {
 
 /* ========================================
    VALIDAR VARIOS ROLES
-   Ejemplo:
-   validarRolesPermitidos(["LABORATORISTA", "ADMINISTRADOR"]);
 ======================================== */
 
 function validarRolesPermitidos(rolesPermitidos) {
@@ -415,3 +505,16 @@ function validarRolesPermitidos(rolesPermitidos) {
         }
     });
 }
+
+
+/* ========================================
+   EXPONER FUNCIONES GLOBALMENTE
+======================================== */
+
+window.iniciarSesion = iniciarSesion;
+window.iniciarConGoogle = iniciarConGoogle;
+window.registrarPaciente = registrarPaciente;
+window.cerrarSesion = cerrarSesion;
+window.validarSesion = validarSesion;
+window.validarRol = validarRol;
+window.validarRolesPermitidos = validarRolesPermitidos;

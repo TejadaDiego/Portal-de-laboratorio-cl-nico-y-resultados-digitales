@@ -1,11 +1,10 @@
-<!-- pages/login.html COMPLETO FUNCIONAL CON FIREBASE -->
+<!-- pages/login.html COMPLETO FUNCIONAL CON FIREBASE Y GOOGLE -->
 
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Iniciar Sesión</title>
@@ -15,21 +14,15 @@
 
 <body>
 
-  <!-- SCANLINES -->
   <div class="scanline"></div>
 
-  <!-- ERROR SCREEN -->
   <div id="errorScreen" class="error-screen hidden">
     <div class="error-box">
       <h2>ACCESS DENIED</h2>
-
-      <p id="errorText">
-        INVALID CREDENTIALS
-      </p>
+      <p id="errorText">INVALID CREDENTIALS</p>
     </div>
   </div>
 
-  <!-- CONTENIDO -->
   <main class="form-container">
 
     <p class="system typing">
@@ -40,54 +33,41 @@
       ACCESO AL SISTEMA
     </h1>
 
-    <!-- FORM -->
     <form id="loginForm" class="form">
 
-      <!-- CORREO -->
-      <label for="correo">
-        Correo electrónico
-      </label>
-
+      <label for="correo">Correo electrónico</label>
       <input
         type="email"
         id="correo"
         placeholder="ejemplo@gmail.com"
-        required
       >
 
-      <!-- PASSWORD -->
-      <label for="password">
-        Contraseña
-      </label>
-
+      <label for="password">Contraseña</label>
       <input
         type="password"
         id="password"
         placeholder="********"
-        required
       >
 
-      <!-- BOTON -->
       <button type="submit" class="btn">
         INICIAR SESIÓN
       </button>
 
+      <button type="button" class="btn" onclick="iniciarConGoogle()">
+        INICIAR CON GOOGLE
+      </button>
+
     </form>
 
-    <!-- MENSAJE EXITO -->
     <p id="successMessage" class="success-message hidden">
       &gt; ACCESS GRANTED
       <br>
       &gt; REDIRECTING USER...
     </p>
 
-    <!-- LINK -->
     <p class="link-text">
       ¿No tienes cuenta?
-
-      <a href="registro.html">
-        Regístrate
-      </a>
+      <a href="registro.html">Regístrate</a>
     </p>
 
   </main>
