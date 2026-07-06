@@ -32,10 +32,10 @@ async function cargarPacientes() {
 
             const option = document.createElement("option");
             option.value = doc.id;
-            option.textContent = `${paciente.nombres} ${paciente.apellidos} - DNI: ${paciente.dni}`;
+            option.textContent = `${paciente.nombres || ""} ${paciente.apellidos || ""} - DNI: ${paciente.dni || ""}`;
 
-            option.setAttribute("data-uid", paciente.uid || "");
-            option.setAttribute("data-nombre", `${paciente.nombres} ${paciente.apellidos}`);
+            option.setAttribute("data-uid", paciente.uid || doc.id);
+            option.setAttribute("data-nombre", `${paciente.nombres || ""} ${paciente.apellidos || ""}`);
 
             selectPaciente.appendChild(option);
         });
@@ -49,8 +49,7 @@ async function cargarPacientes() {
 
 // ========================================
 // CARGAR TIPOS DE ANÁLISIS EN EL COMBO
-// Usa la colección creada en Firebase:
-// tipo_de_análisis
+// Colección real en Firebase: tipos_analisis
 // ========================================
 async function cargarTiposAnalisis() {
     const selectAnalisis = document.getElementById("tipo_analisis_id");
@@ -60,7 +59,7 @@ async function cargarTiposAnalisis() {
     selectAnalisis.innerHTML = '<option value="">Seleccione análisis</option>';
 
     try {
-        const snapshot = await db.collection("tipo_de_análisis")
+        const snapshot = await db.collection("tipos_analisis")
             .where("estado", "==", "ACTIVO")
             .get();
 
@@ -77,9 +76,9 @@ async function cargarTiposAnalisis() {
 
             const option = document.createElement("option");
             option.value = doc.id;
-            option.textContent = analisis.nombre;
+            option.textContent = analisis.nombre || "Sin nombre";
 
-            option.setAttribute("data-nombre", analisis.nombre);
+            option.setAttribute("data-nombre", analisis.nombre || "Sin nombre");
 
             selectAnalisis.appendChild(option);
         });
@@ -203,10 +202,10 @@ async function listarSolicitudes() {
                     <td>
                         <select class="form-select form-select-sm" onchange="cambiarEstadoSolicitud('${doc.id}', this.value)">
                             <option value="">Cambiar estado</option>
-                            <option value="PENDIENTE">PENDIENTE</option>
-                            <option value="EN PROCESO">EN PROCESO</option>
-                            <option value="RESULTADO DISPONIBLE">RESULTADO DISPONIBLE</option>
-                            <option value="ENTREGADO">ENTREGADO</option>
+                            <option value="PENDIENTE" ${estado === "PENDIENTE" ? "selected" : ""}>PENDIENTE</option>
+                            <option value="EN PROCESO" ${estado === "EN PROCESO" ? "selected" : ""}>EN PROCESO</option>
+                            <option value="RESULTADO DISPONIBLE" ${estado === "RESULTADO DISPONIBLE" ? "selected" : ""}>RESULTADO DISPONIBLE</option>
+                            <option value="ENTREGADO" ${estado === "ENTREGADO" ? "selected" : ""}>ENTREGADO</option>
                         </select>
                     </td>
                 </tr>
@@ -224,15 +223,37 @@ async function listarSolicitudes() {
 
 // ========================================
 // CAMBIAR ESTADO DE SOLICITUD
+// También genera notificación al paciente
 // ========================================
 async function cambiarEstadoSolicitud(idSolicitud, nuevoEstado) {
     if (nuevoEstado === "") return;
 
     try {
+        const solicitudDoc = await db.collection("solicitudes").doc(idSolicitud).get();
+
+        if (!solicitudDoc.exists) {
+            alert("Solicitud no encontrada.");
+            return;
+        }
+
+        const solicitud = solicitudDoc.data();
+
         await db.collection("solicitudes").doc(idSolicitud).update({
             estado: nuevoEstado,
             fecha_actualizacion: new Date()
         });
+
+        if (nuevoEstado === "RESULTADO DISPONIBLE") {
+            if (typeof crearNotificacion === "function") {
+                await crearNotificacion(
+                    solicitud.uid_paciente,
+                    `Su resultado del análisis ${solicitud.tipo_analisis_nombre} ya se encuentra disponible.`,
+                    "RESULTADO"
+                );
+            } else {
+                console.warn("crearNotificacion no está disponible. Revisa que notificaciones.js cargue antes que solicitudes.js.");
+            }
+        }
 
         alert("Estado actualizado correctamente.");
         listarSolicitudes();
